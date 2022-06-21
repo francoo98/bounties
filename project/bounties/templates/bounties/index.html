@@ -1,4 +1,6 @@
 <h1>Bounties</h1>
+<a href="{% url 'bounties:create_bounty' %}">Create new bounty</a>
+<br>
 {% for bounty in bounties_list %}
     {{bounty}}<br>
 {% endfor %}

@@ -20,5 +20,5 @@ import bounties
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('bounties.urls')),
+    path('', include('bounties.urls'), name='bounties'),
 ]
