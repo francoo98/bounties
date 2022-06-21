@@ -9,7 +9,7 @@ class RecentBounties(generic.ListView):
     context_object_name = 'bounties_list'
 
     def get_queryset(self):
-        return [1,2,3]
+        return Bounty.objects.all()
 
 def create_bounty(request):
     if request.method == 'GET':
