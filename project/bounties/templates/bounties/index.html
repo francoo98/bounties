@@ -2,5 +2,6 @@
 <a href="{% url 'bounties:create_bounty' %}">Create new bounty</a>
 <br>
 {% for bounty in bounties_list %}
-    {{bounty}}<br>
+    <a href="{% url 'bounties:view_bounty' bounty.id %}">{{bounty}}</a>
+    <br>
 {% endfor %}

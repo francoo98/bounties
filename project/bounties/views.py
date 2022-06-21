@@ -11,6 +11,10 @@ class RecentBounties(generic.ListView):
     def get_queryset(self):
         return Bounty.objects.all()
 
+class ViewBounty(generic.DetailView):
+    model = Bounty 
+    template_name = 'bounties/view_bounty.html'
+
 def create_bounty(request):
     if request.method == 'GET':
         return render(request, 'bounties/create_bounty.html')
