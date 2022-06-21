@@ -11,3 +11,6 @@ class Bounty(models.Model):
         constraints = [
             models.CheckConstraint(check=models.Q(reward__range=(1, 500)), name='reward_range'),
         ]
+    
+    def __str__(self):
+        return self.title
