@@ -1,4 +1,5 @@
-from django.db import models
+from django.db import models 
+from django.contrib.auth.models import User 
 from django.utils import timezone
 from django.urls import reverse
 
@@ -7,6 +8,7 @@ class Bounty(models.Model):
     description = models.TextField(max_length=1000)
     reward = models.PositiveSmallIntegerField()
     creation_date = models.DateTimeField(default=timezone.now)
+    creator = models.OneToOneField(User, models.SET_NULL, primary_key=False, null=True)
 
     class Meta:
         constraints = [

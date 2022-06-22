@@ -25,3 +25,11 @@ class CreateBounty(LoginRequiredMixin, generic.CreateView):
     model = Bounty
     fields = ['title', 'description', 'reward']
     template_name = 'bounties/create_bounty.html'
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # creator = request.user
+            new_bounty = Bounty(title=request.POST["title"], description=request.POST["description"], reward=request.POST["reward"], creator=request.user)
+            new_bounty.save()
+            return redirect(new_bounty)
