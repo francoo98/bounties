@@ -16,7 +16,7 @@ class ViewBounty(generic.DetailView):
     model = Bounty 
     template_name = 'bounties/view_bounty.html'
 
-class DeleleBounty(generic.DeleteView):
+class DeleteBounty(generic.DeleteView):
     model = Bounty
     success_url = reverse_lazy('bounties:recent_bounties')
 
