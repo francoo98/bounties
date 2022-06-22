@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 class Bounty(models.Model):
     title = models.CharField(max_length=40)
@@ -12,5 +13,8 @@ class Bounty(models.Model):
             models.CheckConstraint(check=models.Q(reward__range=(1, 500)), name='reward_range'),
         ]
     
+    def get_absolute_url(self):
+        return reverse('bounties:view_bounty', kwargs={'pk' : self.id})
+
     def __str__(self):
         return self.title

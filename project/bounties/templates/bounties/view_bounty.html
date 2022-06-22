@@ -1,4 +1,5 @@
 <h1>{{ bounty.title }}</h1>
+<p><a href="{% url 'bounties:delete_bounty' bounty.id %}">Delete bounty</a></p>
 <p>{{ bounty.description }}</p>
 <p>Reward: {{ bounty.reward }}</p>
 <a href="{% url 'bounties:recent_bounties' %}">Home</a>
