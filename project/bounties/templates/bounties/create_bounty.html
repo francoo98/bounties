@@ -1,16 +1,3 @@
-<!--
-<form action="{% url 'bounties:create_bounty' %}" method="post">
-{% csrf_token %}
-<fieldset>
-Title: <input type="text" name="title">
-Description: <input type="textarea" name="description">
-Reward: <input type="number" name="reward">
-<br>
-<input type="submit" name="submit">
-</fieldset>
-</form>
--->
-
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

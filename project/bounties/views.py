@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from bounties.models import Bounty
 
+
 class RecentBounties(ListView):
     template_name = 'bounties/index.html'
     context_object_name = 'bounties_list'
@@ -15,13 +16,16 @@ class RecentBounties(ListView):
     def get_queryset(self):
         return Bounty.objects.all()
 
+
 class ViewBounty(DetailView):
-    model = Bounty 
+    model = Bounty
     template_name = 'bounties/view_bounty.html'
+
 
 class DeleteBounty(DeleteView):
     model = Bounty
     success_url = reverse_lazy('bounties:recent_bounties')
+
 
 class CreateBounty(LoginRequiredMixin, CreateView):
     model = Bounty
@@ -31,13 +35,3 @@ class CreateBounty(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
-
-    """
-    def post(self, request):
-        # form = self.form_class(request.POST)
-        if form_valid(self, form):
-            # creator = request.user
-            new_bounty = Bounty(title=request.POST["title"], description=request.POST["description"], reward=request.POST["reward"], creator=request.user)
-            new_bounty.save()
-            return redirect(new_bounty)
-    """
