@@ -14,7 +14,7 @@ class RecentBounties(ListView):
     context_object_name = 'bounties_list'
 
     def get_queryset(self):
-        return Bounty.objects.all()
+        return Bounty.objects.exclude(status=3)
 
 
 class ViewBounty(DetailView):
