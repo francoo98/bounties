@@ -1,5 +1,6 @@
 <h1>{{ bounty.title }}</h1>
 <p>Creator: {{ bounty.creator }}</p>
+<p>Status: {{ bounty.status }}</p>
 <p><a href="{% url 'bounties:delete_bounty' bounty.id %}">Delete bounty</a></p>
 <p>{{ bounty.description }}</p>
 <p>Reward: {{ bounty.reward }}</p>

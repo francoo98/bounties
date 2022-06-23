@@ -5,12 +5,21 @@ from django.urls import reverse
 
 
 class Bounty(models.Model):
+    ONGOING = 0
+    FINISHED_AWARDED = 1
+    FINISHED_EXPIRED = 2
+    DELETED = 3
+    STATUS_CHOICES = [(ONGOING, 'Ongoing'), (FINISHED_AWARDED, 'Awarded'),
+                      (FINISHED_EXPIRED, 'Expired'), (DELETED, 'Deleted')]
+
     title = models.CharField(max_length=40)
     description = models.TextField(max_length=1000)
     reward = models.PositiveSmallIntegerField()
     creation_date = models.DateTimeField(default=timezone.now)
     creator = models.ForeignKey(
-        User, models.SET_NULL, primary_key=False, null=True)
+        User, models.SET_NULL, primary_key=False, null=True, related_name='bounties')
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS_CHOICES, default=ONGOING)
 
     class Meta:
         constraints = [

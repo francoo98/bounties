@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from bounties.models import Bounty
 
@@ -22,9 +22,19 @@ class ViewBounty(DetailView):
     template_name = 'bounties/view_bounty.html'
 
 
-class DeleteBounty(DeleteView):
+class DeleteBounty(UserPassesTestMixin, DeleteView):
     model = Bounty
     success_url = reverse_lazy('bounties:recent_bounties')
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.object.status = Bounty.DELETED
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+    def test_func(self):
+        bounty = self.model.objects.get(id=self.kwargs['pk'])
+        return self.request.user == bounty.creator
 
 
 class CreateBounty(LoginRequiredMixin, CreateView):
