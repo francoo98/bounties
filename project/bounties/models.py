@@ -8,7 +8,8 @@ class Bounty(models.Model):
     description = models.TextField(max_length=1000)
     reward = models.PositiveSmallIntegerField()
     creation_date = models.DateTimeField(default=timezone.now)
-    creator = models.OneToOneField(User, models.SET_NULL, primary_key=False, null=True)
+    # creator = models.OneToOneField(User, models.SET_NULL, primary_key=False, null=True, unique=False, )
+    creator = models.ForeignKey(User, models.SET_NULL, primary_key=False, null=True)
 
     class Meta:
         constraints = [
