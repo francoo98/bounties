@@ -1,9 +1,12 @@
+{% extends 'project/header.html' %}
 {% load static %}
+
+{% block page_content %}
 <link rel="stylesheet" href="{% static 'bootstrap-5.2.0/css/bootstrap.css' %}">
-<h1>Bounties</h1>
 <a href="{% url 'bounties:create_bounty' %}">Create new bounty</a>
 <br>
 {% for bounty in bounties_list %}
     <a href="{% url 'bounties:view_bounty' bounty.id %}">{{bounty}}</a>
     <br>
 {% endfor %}
+{% endblock page_content %}
