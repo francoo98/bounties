@@ -1,5 +1,11 @@
+{% extends 'project/header.html' %}
+{% block page_content %}
+<br>
+<div class="container-fluid">
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">
 </form>
+</div>
+{% endblock page_content %}

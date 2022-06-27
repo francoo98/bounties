@@ -1,12 +1,14 @@
 {% extends 'project/header.html' %}
-{% load static %}
 
 {% block page_content %}
-<link rel="stylesheet" href="{% static 'bootstrap-5.2.0/css/bootstrap.css' %}">
-<a href="{% url 'bounties:create_bounty' %}">Create new bounty</a>
 <br>
 {% for bounty in bounties_list %}
-    <a href="{% url 'bounties:view_bounty' bounty.id %}">{{bounty}}</a>
+    <div class="container-sm border rounded p-1 border-dark">
+        <div class="row">
+            <div class="col-1"><h4>${{bounty.reward}}</h4></div>
+            <div class="col"><h4><a href="{% url 'bounties:view_bounty' bounty.id %}">{{bounty}}</a></h4></div>
+        </div>
+    </div>
     <br>
 {% endfor %}
 {% endblock page_content %}

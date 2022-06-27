@@ -1,7 +1,14 @@
-<h1>{{ bounty.title }}</h1>
-<p>Creator: {{ bounty.creator }}</p>
-<p>Status: {{ bounty.status }}</p>
-<p><a href="{% url 'bounties:delete_bounty' bounty.id %}">Delete bounty</a></p>
-<p>{{ bounty.description }}</p>
-<p>Reward: {{ bounty.reward }}</p>
-<a href="{% url 'bounties:recent_bounties' %}">Home</a>
+{% extends 'project/header.html' %}
+{% block page_content %}
+<br>
+<div class="container">
+   <div class="bg-light p-5 rounded border border-dark">
+    <h1>{{ bounty.title }}</h1>
+    <p>Creator: {{ bounty.creator }}. Reward: ${{ bounty.reward }}</p>
+    <p class="lead">{{ bounty.description }}</p>
+    <p><a href="{% url 'bounties:delete_bounty' bounty.id %}"><button class="btn btn-danger">Delete</button></a></p>
+  </div> 
+</div>
+
+
+{% endblock page_content %}

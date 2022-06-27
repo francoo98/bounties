@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap-5.2.0/css/bootstrap.css' %}">
+
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -14,10 +17,10 @@
 
             <div class="text-end">
                 {% if request.user.is_authenticated %}
-                <button type="button" class="btn btn-primary me-2" action="{% url 'bounties:create_bounty' %}">New bounty</button>
-                <button type="button" class="btn btn-link me-2" action="{% url 'logout' %}">Sign out</button>
+                <a href="{% url 'bounties:create_bounty' %}"><button type="button" class="btn btn-primary me-2">New bounty</button></a>
+                <a href="{% url 'logout' %}"><button type="button" class="btn btn-link me-2">Sign out</button></a>
                 {% else %}
-                <button type="button" class="btn btn-outline-light me-2"><a href="{% url 'login' %}">Login</a></button>
+                <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
                 {% endif %}
             </div>
         </div>
