@@ -3,6 +3,9 @@
 <br>
 <div class="container">
    <div class="bg-light p-5 rounded border border-dark">
+    {% if bounty.status != 0 %}
+    {{ bounty.status }}
+    {% endif %}
     <h1>{{ bounty.title }}</h1>
     <p>Creator: {{ bounty.creator }}. Reward: ${{ bounty.reward }}</p>
     <p class="lead">{{ bounty.description }}</p>
