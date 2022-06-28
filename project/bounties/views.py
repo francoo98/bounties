@@ -47,7 +47,7 @@ class CreateBounty(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class CreateSolution(CreateView):
+class CreateSolution(LoginRequiredMixin, CreateView):
     model = Solution
     fields = ['text']
 
