@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DeleteBounty, RecentBounties, ViewBounty, CreateBounty
+from .views import DeleteBounty, RecentBounties, ViewBounty, CreateBounty, CreateSolution
 
 app_name = 'bounties'
 
@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:pk>', ViewBounty.as_view(), name="view_bounty"),
     path('create', CreateBounty.as_view(), name="create_bounty"),
     path('delete/<int:pk>', DeleteBounty.as_view(), name="delete_bounty"),
+    path('<int:pk>/solution/create', CreateSolution.as_view(), name="create_solution")
 ]

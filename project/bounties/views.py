@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from bounties.models import Bounty
+from bounties.models import Bounty, Solution
 
 
 class RecentBounties(ListView):
@@ -44,4 +44,17 @@ class CreateBounty(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
+        return super().form_valid(form)
+
+
+class CreateSolution(CreateView):
+    model = Solution
+    fields = ['text']
+
+    def form_valid(self, form):
+        bounty = Bounty.objects.get(id=self.kwargs['pk'])
+        form.instance.bounty = bounty
+        form.instance.creator = self.request.user
+        self.success_url = reverse_lazy(
+            'bounties:view_bounty', args=(self.kwargs['pk'],))
         return super().form_valid(form)

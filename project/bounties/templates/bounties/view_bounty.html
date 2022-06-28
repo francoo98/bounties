@@ -9,9 +9,14 @@
     <h1>{{ bounty.title }}</h1>
     <p>Creator: {{ bounty.creator }}. Reward: ${{ bounty.reward }}</p>
     <p class="lead">{{ bounty.description }}</p>
+    <p><a href="{% url 'bounties:create_solution' bounty.id %}"><button class="btn btn-primary">Create solution</button></a></p>
     <p><a href="{% url 'bounties:delete_bounty' bounty.id %}"><button class="btn btn-danger">Delete</button></a></p>
   </div> 
 </div>
+
+{% for solution in bounty.solutions.all %}
+{{ solution.text }}
+{% endfor %}
 
 
 {% endblock page_content %}
