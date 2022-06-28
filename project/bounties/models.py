@@ -18,7 +18,7 @@ class Bounty(models.Model):
     reward = models.PositiveSmallIntegerField()
     creation_date = models.DateTimeField(default=timezone.now)
     creator = models.ForeignKey(
-        User, models.DO_NOTHING, primary_key=False, related_name='bounties')
+        User, models.DO_NOTHING, primary_key=False, null=True, related_name='bounties')
     status = models.PositiveSmallIntegerField(
         choices=STATUS_CHOICES, default=ONGOING)
 
