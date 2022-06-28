@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -32,3 +33,20 @@ class Bounty(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Solution(models.Model):
+    AWARDED = 0
+    UNAWARDED = 1
+    STATUS_CHOICES = [(AWARDED, 'Awarded'), (UNAWARDED, 'Unawarded')]
+
+    creator = models.ForeignKey(
+        User, models.DO_NOTHING, primary_key=False, related_name='solutions')
+    bounty = models.ForeignKey(
+        Bounty, models.CASCADE, primary_key=False, related_name='solutions')
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS_CHOICES, default=UNAWARDED)
+    text = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f"Solution {self.id} to {self.bounty}"
