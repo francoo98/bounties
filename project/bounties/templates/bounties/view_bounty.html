@@ -20,6 +20,7 @@
 <p class="lead">{{ solution.text }}</p>
 {{ solution.creator.username }}
 <button class="btn btn-success">Award</button>
+<a href="{% url 'bounties:delete_solution' bounty.id solution.id %}"><button class="btn btn-danger">Delete</button></a>
 </div>
 <br>
 {% endfor %}

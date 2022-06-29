@@ -58,3 +58,16 @@ class CreateSolution(LoginRequiredMixin, CreateView):
         self.success_url = reverse_lazy(
             'bounties:view_bounty', args=(self.kwargs['pk'],))
         return super().form_valid(form)
+
+
+class DeleteSolution(DeleteView):
+    model = Solution
+    success_url = reverse_lazy('bounties:recent_bounties')
+
+    def form_valid(self, form):
+        success_url = reverse_lazy('bounties:view_bounty', args=(self.kwargs['bounty_pk'],))
+        return HttpResponseRedirect(success_url)
+
+    def test_func(self):
+        solution = self.model.objects.get(id=self.kwargs['pk'])
+        return self.request.user == solution.creator
