@@ -10,7 +10,9 @@
     <p>Creator: {{ bounty.creator }}. Reward: ${{ bounty.reward }}</p>
     <p class="lead">{{ bounty.description }}</p>
     <a href="{% url 'bounties:create_solution' bounty.id %}"><button class="btn btn-primary">Create solution</button></a>
+    {% if user == bounty.creator %}
     <a href="{% url 'bounties:delete_bounty' bounty.id %}"><button class="btn btn-danger">Delete</button></a>
+    {% endif %}
   </div> 
 </div>
 <br>
@@ -20,8 +22,12 @@
 <div class="bg-light p-2 rounded border border-dark">
 <p class="lead">{{ solution.text }}</p>
 {{ solution.creator.username }}
+{% if user == bounty.creator %}
 <button class="btn btn-success">Award</button>
+{% endif %}
+{% if user == solution.creator %}
 <a href="{% url 'bounties:delete_solution' bounty.id solution.id %}"><button class="btn btn-danger">Delete</button></a>
+{% endif %}
 </div>
 <br>
 {% endif %}
