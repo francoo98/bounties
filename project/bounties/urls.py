@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DeleteBounty, RecentBounties, ViewBounty, CreateBounty, CreateSolution, DeleteSolution, AwardSolution, award_solution
+from .views import DeleteBounty, RecentBounties, ViewBounty, CreateBounty, CreateSolution, DeleteSolution, award_solution
 
 app_name = 'bounties'
 
