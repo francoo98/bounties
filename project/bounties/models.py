@@ -38,7 +38,9 @@ class Bounty(models.Model):
 class Solution(models.Model):
     AWARDED = 0
     UNAWARDED = 1
-    STATUS_CHOICES = [(AWARDED, 'Awarded'), (UNAWARDED, 'Unawarded')]
+    DELETED = 2
+    STATUS_CHOICES = [(AWARDED, 'Awarded'), (UNAWARDED,
+                                             'Unawarded'), (DELETED, 'Deleted')]
 
     creator = models.ForeignKey(
         User, models.DO_NOTHING, primary_key=False, related_name='solutions')
