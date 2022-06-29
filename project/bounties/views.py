@@ -60,7 +60,7 @@ class CreateSolution(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DeleteSolution(DeleteView):
+class DeleteSolution(UserPassesTestMixin, DeleteView):
     model = Solution
     success_url = reverse_lazy('bounties:recent_bounties')
 
