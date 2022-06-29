@@ -21,6 +21,8 @@ class Bounty(models.Model):
         User, models.DO_NOTHING, primary_key=False, null=True, related_name='bounties')
     status = models.PositiveSmallIntegerField(
         choices=STATUS_CHOICES, default=ONGOING)
+    awarded_solution = models.OneToOneField(
+        'Solution', models.SET_NULL, null=True, primary_key=False, related_name='+')
 
     class Meta:
         constraints = [
