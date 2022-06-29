@@ -17,20 +17,30 @@
 </div>
 <br>
 <div class="container">
+  {% if bounty.awarded_solution %}
+    <div class="bg-light p-2 rounded border border-info">
+      <p class="lead">{{ bounty.awarded_solution.text }}</p>
+      {{ bounty.awarded_solution.creator.username }}
+      {% if user == bounty.awarded_solution.creator %}
+      <a href="{% url 'bounties:delete_solution' bounty.id bounty.awarded_solution.id %}"><button class="btn btn-danger">Delete</button></a>
+      {% endif %}
+    </div>
+    <br>
+  {% endif %}
 {% for solution in bounty.solutions.all %}
-{% if solution.status != solution.DELETED %}
-<div class="bg-light p-2 rounded border border-dark">
-<p class="lead">{{ solution.text }}</p>
-{{ solution.creator.username }}
-{% if user == bounty.creator %}
-<button class="btn btn-success">Award</button>
-{% endif %}
-{% if user == solution.creator %}
-<a href="{% url 'bounties:delete_solution' bounty.id solution.id %}"><button class="btn btn-danger">Delete</button></a>
-{% endif %}
-</div>
-<br>
-{% endif %}
+  {% if solution.status != solution.DELETED and solution != bounty.awarded_solution %}
+    <div class="bg-light p-2 rounded border border-dark">
+    <p class="lead">{{ solution.text }}</p>
+    {{ solution.creator.username }}
+    {% if user == bounty.creator %}
+      <a href="{% url 'bounties:award_solution' bounty.id solution.id %}"><button class="btn btn-success">Award</button></a>
+    {% endif %}
+    {% if user == solution.creator %}
+      <a href="{% url 'bounties:delete_solution' bounty.id solution.id %}"><button class="btn btn-danger">Delete</button></a>
+    {% endif %}
+  </div>
+  <br>
+  {% endif %}
 {% endfor %}
 </div>
 

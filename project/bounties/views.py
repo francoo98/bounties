@@ -1,10 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views import View
 from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied, BadRequest
 
 from bounties.models import Bounty, Solution
 
@@ -65,7 +68,8 @@ class DeleteSolution(UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('bounties:recent_bounties')
 
     def form_valid(self, form):
-        success_url = reverse_lazy('bounties:view_bounty', args=(self.kwargs['bounty_pk'],))
+        success_url = reverse_lazy(
+            'bounties:view_bounty', args=(self.kwargs['bounty_pk'],))
         self.object.status = Solution.DELETED
         self.object.save()
         return HttpResponseRedirect(success_url)
@@ -73,3 +77,20 @@ class DeleteSolution(UserPassesTestMixin, DeleteView):
     def test_func(self):
         solution = self.model.objects.get(id=self.kwargs['pk'])
         return self.request.user == solution.creator
+
+
+def award_solution(request, bounty_pk, pk):
+    bounty = get_object_or_404(Bounty, pk=bounty_pk)
+    solution = get_object_or_404(Solution, pk=pk)
+
+    if not request.user.is_authenticated or request.user != bounty.creator:
+        raise PermissionDenied
+    if request.method != 'GET':
+        raise BadRequest
+
+    bounty.awarded_solution = solution
+    solution.status = Solution.AWARDED
+    bounty.save()
+    solution.save()
+
+    return redirect(bounty, reverse('bounties:view_bounty', args=(bounty_pk,)))
