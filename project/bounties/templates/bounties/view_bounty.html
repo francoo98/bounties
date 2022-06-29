@@ -16,6 +16,7 @@
 <br>
 <div class="container">
 {% for solution in bounty.solutions.all %}
+{% if solution.status != solution.DELETED %}
 <div class="bg-light p-2 rounded border border-dark">
 <p class="lead">{{ solution.text }}</p>
 {{ solution.creator.username }}
@@ -23,6 +24,7 @@
 <a href="{% url 'bounties:delete_solution' bounty.id solution.id %}"><button class="btn btn-danger">Delete</button></a>
 </div>
 <br>
+{% endif %}
 {% endfor %}
 </div>
 

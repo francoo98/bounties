@@ -66,6 +66,8 @@ class DeleteSolution(DeleteView):
 
     def form_valid(self, form):
         success_url = reverse_lazy('bounties:view_bounty', args=(self.kwargs['bounty_pk'],))
+        self.object.status = Solution.DELETED
+        self.object.save()
         return HttpResponseRedirect(success_url)
 
     def test_func(self):
