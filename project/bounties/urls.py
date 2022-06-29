@@ -8,7 +8,10 @@ urlpatterns = [
     path('<int:pk>', ViewBounty.as_view(), name="view_bounty"),
     path('create', CreateBounty.as_view(), name="create_bounty"),
     path('delete/<int:pk>', DeleteBounty.as_view(), name="delete_bounty"),
-    path('<int:pk>/solution/create', CreateSolution.as_view(), name="create_solution"),
-    path('<int:bounty_pk>/solution/delete/<int:pk>', DeleteSolution.as_view(), name="delete_solution"),
-    path('<int:bounty_pk>/solution/award/<int:pk>', award_solution, name='award_solution')
+    path('<int:pk>/solution/create',
+         CreateSolution.as_view(), name="create_solution"),
+    path('<int:bounty_pk>/solution/delete/<int:pk>',
+         DeleteSolution.as_view(), name="delete_solution"),
+    path('<int:bounty_pk>/solution/award/<int:pk>',
+         award_solution, name='award_solution')
 ]
