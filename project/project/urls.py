@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('bounty/', include('bounties.urls'), name='bounties'),
+    path('api/bounty/', include('bounties_api.urls'), name='bounties_api'),
 ]
