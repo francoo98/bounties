@@ -86,6 +86,7 @@ def award_solution(request, bounty_pk, pk):
         raise BadRequest
 
     bounty.awarded_solution = solution
+    bounty.status = Bounty.FINISHED_AWARDED
     solution.status = Solution.AWARDED
     bounty.save()
     solution.save()
