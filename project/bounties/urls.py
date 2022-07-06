@@ -1,8 +1,6 @@
 from django.urls import path
 from .views import (DeleteBounty, RecentBounties, ViewBounty, CreateBounty,
-                    CreateSolution, DeleteSolution, award_solution,
-                    api_bounty_list, api_bounty_detail)
-from rest_framework.urlpatterns import format_suffix_patterns
+                    CreateSolution, DeleteSolution, award_solution)
 
 app_name = 'bounties'
 
@@ -16,9 +14,5 @@ urlpatterns = [
     path('<int:bounty_pk>/solution/delete/<int:pk>',
          DeleteSolution.as_view(), name="delete_solution"),
     path('<int:bounty_pk>/solution/award/<int:pk>',
-          award_solution, name='award_solution'),
-     path('api/', api_bounty_list, name='api_recent_bounties'),
-     path('api/<int:pk>', api_bounty_detail, name='api_bounty_detail')
+         award_solution, name='award_solution'),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
