@@ -27,3 +27,7 @@ class BountyDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BountySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
+
+    def perform_destroy(self, bounty):
+        bounty.status = Bounty.DELETED
+        bounty.save()
