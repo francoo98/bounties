@@ -1,10 +1,13 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import api_bounty_list, api_bounty_detail 
+from .views import BountyDetail, BountyList
 
 app_name = 'bounties_api'
 
 urlpatterns = [
-    path('', api_bounty_list, name='bounties_list'),
-    path('<int:pk>', api_bounty_detail, name='bounty_detail'),
+    path('', BountyList.as_view(), name='bounties_list'),
+    path('<int:pk>', BountyDetail.as_view(), name='bounty_detail'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
