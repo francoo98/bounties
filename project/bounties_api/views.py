@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 
 from bounties.models import Bounty
 from .serializers import BountySerializer
+from .permissions import IsOwnerOrReadOnly
 
 
 class BountyList(generics.ListCreateAPIView):
@@ -24,4 +25,5 @@ class BountyDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Bounty.objects.all()
     serializer_class = BountySerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
