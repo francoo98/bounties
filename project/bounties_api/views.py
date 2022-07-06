@@ -1,6 +1,5 @@
 from rest_framework import generics
 
-
 from bounties.models import Bounty
 from .serializers import BountySerializer
 
@@ -12,6 +11,9 @@ class BountyList(generics.ListCreateAPIView):
 
     queryset = Bounty.objects.all()
     serializer_class = BountySerializer
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
 
 
 class BountyDetail(generics.RetrieveUpdateDestroyAPIView):

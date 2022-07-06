@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from bounties.models import Bounty
+from django.contrib.auth.models import User
 
 
 class BountySerializer(serializers.ModelSerializer):
+    creator = serializers.ReadOnlyField(source='creator.username')
 
     class Meta:
         model = Bounty
