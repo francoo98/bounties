@@ -1,8 +1,51 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
+from rest_framework.reverse import reverse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import viewsets
 
-from bounties.models import Bounty
-from .serializers import BountySerializer
+
+from bounties.models import Bounty, Solution
+from .serializers import BountySerializer, SolutionSerializer
 from .permissions import IsOwnerOrReadOnly
+
+
+"""
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('users_api:users_list', request=request, format=format),
+        'bounties': reverse('bounties_list', request=request, format=format)
+    })
+"""
+
+class BountyViewSet(viewsets.ModelViewSet):
+    queryset = Bounty.objects.all()
+    serializer_class = BountySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                        IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
+    def perform_destroy(self, request, pk, format=None):
+        bounty = Bounty.objects.get(id=pk)
+        bounty.status = Bounty.DELETED
+        bounty.save()
+
+class SolutionViewSet(viewsets.ModelViewSet):
+    queryset = Solution.objects.all()
+    serializer_class = SolutionSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                        IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
+    def perform_destroy(self, instance):
+        instance.status = Solution.DELETED
+        instance.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class BountyList(generics.ListCreateAPIView):
