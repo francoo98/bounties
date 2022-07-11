@@ -5,7 +5,7 @@ It supports `Bounty` (model to represent a programming task) and `Solution` crea
 
 ### APIs
 The website has two APIs implemented with `django-rest-framework`.
-These APIs have endpoints to work with bounties and users (see details below).
+These APIs have endpoints to work with bounties, solutions and users (see details below).
 ## `bounties` app
 This app provides the base application to work with bounties.
 ### Urls
@@ -19,10 +19,14 @@ This app provides the base application to work with bounties.
 ## `bounties_api` app
 In this app the project exposes REST endpoints to work with bounties.
 ### Urls
-1. `/api/bounty` Retrieves a list of `Bounty` (GET) or creates a new `Bounty` (POST)
-2. `/api/bounty/<int>` Applies any of the CRUD operation to a `Bounty` instance
+1. `/api/bounty/` Retrieves a list of `Bounty` (GET) or creates a new `Bounty` (POST)
+2. `/api/bounty/<int>/` Applies any of the CRUD operation to a `Bounty` instance
+3. `/api/solution/` GETs a list of `Solution` or creates a new one (POST)
+4. `/api/solution/<int>/` Applies any of the CRUD operation to a `Solution` instance
+
+NOTE: the delete action is not implemented to remove the object from the DB, but to change the status of the object to `DELETED`.
 ## `users_api` app
 In this app the project exposes REST endpoints to work with users.
 ### Urls
-1. `/api/user` Retrieves a list of `User` (GET)
-2. `/api/user/<int>` Retrieves the details of a specific `User` (Only GET is implemented)
+1. `/api/user/` Retrieves a list of `User` (GET)
+2. `/api/user/<int>/` Retrieves the details of a specific `User` (Only GET is implemented)
