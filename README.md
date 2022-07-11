@@ -23,6 +23,7 @@ In this app the project exposes REST endpoints to work with bounties.
 2. `/api/bounty/<int>/` Applies any of the CRUD operation to a `Bounty` instance
 3. `/api/solution/` GETs a list of `Solution` or creates a new one (POST)
 4. `/api/solution/<int>/` Applies any of the CRUD operation to a `Solution` instance
+
 NOTE: the delete action is not implemented to remove the object from the DB, but to change the status of the object to `DELETED`.
 ## `users_api` app
 In this app the project exposes REST endpoints to work with users.
