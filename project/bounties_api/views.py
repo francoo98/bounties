@@ -28,10 +28,11 @@ class BountyViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
-    def perform_destroy(self, request, pk, format=None):
-        bounty = Bounty.objects.get(id=pk)
-        bounty.status = Bounty.DELETED
-        bounty.save()
+    def perform_destroy(self, instance):
+        instance.status = Bounty.DELETED
+        instance.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class SolutionViewSet(viewsets.ModelViewSet):
     queryset = Solution.objects.all()
