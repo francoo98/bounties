@@ -7,7 +7,7 @@ from .views import BountyViewSet, SolutionViewSet
 app_name = 'bounties_api'
 
 router = DefaultRouter()
-router.register(r'bounty', BountyViewSet, basename='bounties')
+router.register(r'bounties', BountyViewSet, basename='bounties')
 router.register(r'solution', SolutionViewSet, basename='solutions')
 
 urlpatterns = [
