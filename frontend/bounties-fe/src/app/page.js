@@ -1,8 +1,11 @@
 import Header from "./header";
-import styles from "./page.module.css";
+import BountiesList from "./bounties-list";
 
 export default function Home() {
   return (
+    <>
     <Header></Header>
+    <BountiesList></BountiesList>
+    </>
   );
 }
